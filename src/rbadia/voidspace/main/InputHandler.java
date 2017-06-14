@@ -30,6 +30,7 @@ public class InputHandler implements KeyListener{
 	private boolean eIsPressed;
 	private boolean qIsPressed;
 	private boolean mIsPressed;
+	private boolean nIsPressed;
 
 	private long lastBulletTime;
 	private long lastExchangeTime;
@@ -100,6 +101,8 @@ public class InputHandler implements KeyListener{
 				}
 			}
 
+			
+			
 			//WIP
 			//			if(mIsPressed){
 			//				mute=1;

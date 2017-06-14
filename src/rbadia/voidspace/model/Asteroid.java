@@ -7,6 +7,7 @@ import rbadia.voidspace.main.GameScreen;
 
 public class Asteroid extends Rectangle {
 	private static final long serialVersionUID = 1L;
+	//Set speed for asteroid - Gian
 	
 	public static final int DEFAULT_SPEED = 4;
 	

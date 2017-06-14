@@ -341,7 +341,7 @@ public class GameScreen extends BaseScreen{
 			}
 		}
 		//
-
+//Potential place for n key
 		if(boom == 2)
 			restructure();
 
