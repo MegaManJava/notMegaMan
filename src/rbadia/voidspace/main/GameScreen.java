@@ -226,7 +226,7 @@ public class GameScreen extends BaseScreen{
 		}
 
 		// draw first asteroid
-		if(!status.isNewAsteroid() && boom <= 5){
+		if(!status.isNewAsteroid() && boom <= 5 && status.getLevel()==1){
 			// draw the asteroid until it reaches the bottom of the screen
 
 			//LEVEL 1
@@ -240,26 +240,30 @@ public class GameScreen extends BaseScreen{
 			}	
 		}
 
-		else if(!status.isNewAsteroid() && boom > 5){
+		else if(!status.isNewAsteroid() && boom > 5 || status.getLevel()==2 ){
 			// draw the asteroid until it reaches the bottom of the screen
 			//LEVEL 2
 			if((asteroid.getX() + asteroid.getAsteroidWidth() >  0)){
 				asteroid.translate(-asteroid.getSpeed(), asteroid.getSpeed()/2);
 				graphicsMan.drawAsteroid(asteroid, g2d, this);	
 			}
-			else if (boom <= 10){
+			else if (boom <= 10 ||status.getLevel()==2){
 				asteroid.setLocation(this.getWidth() - asteroid.getAsteroidWidth(),
 						rand.nextInt(this.getHeight() - asteroid.getAsteroidHeight() - 32));
 			}	
 		}
 
-		else if(!status.isNewAsteroid() && boom > 10){
+		else if(!status.isNewAsteroid() && boom > 10 || status.getLevel()==3){
 			//possible lvl 3 here for asteroids
 			if((asteroid.getX() + asteroid.getAsteroidWidth() >  0)){
 				asteroid.translate(-asteroid.getSpeed(), asteroid.getSpeed()/4);
 				graphicsMan.drawAsteroid(asteroid, g2d, this);	
 			}
-			else if (boom <= 15){
+			
+			
+			
+			//Needs work for asteroids to respawn randomly on the screen
+			else if (boom <= 15 || status.getLevel()==3){
 				asteroid.setLocation(this.getWidth() - asteroid.getAsteroidWidth(),
 						rand.nextInt(this.getHeight() - asteroid.getAsteroidHeight() - 32));
 			}	
