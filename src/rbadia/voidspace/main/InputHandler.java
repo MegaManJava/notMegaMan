@@ -140,11 +140,14 @@ private long lastPressProcessed=0;
 			
 			if(nIsPressed){
 				//add code to skip lvl
+				
 				 if(System.currentTimeMillis() - lastPressProcessed > 75) {
 			         
 			            lastPressProcessed = System.currentTimeMillis();
 				int lvl = status.getLevel();
 				status.setLevel(lvl +1);
+				
+				
 				 }
 				
 			}
@@ -382,11 +385,17 @@ private long lastPressProcessed=0;
 	
 	
 	public void keyTyped(KeyEvent e) {
-		 if(System.currentTimeMillis() - lastPressProcessed > 500) {
-	            
-	            lastPressProcessed = System.currentTimeMillis();
-		 }
-	}
+		GameStatus status = gameLogic.getStatus();
+		switch(e.getKeyCode()){
+		case KeyEvent.VK_N:
+			if(status.getLevel()==2)
+			gScreen.restructure();
+			
+			if(status.getLevel()==3)
+				gScreen.restructure2();
+		}
+		}
+	
 //Added 
 	public boolean getNext(){
 		return nIsPressed;

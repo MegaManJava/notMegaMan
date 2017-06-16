@@ -55,6 +55,8 @@ public class GameScreen extends BaseScreen{
 
 	private Random rand;
 
+	
+	
 	private Font originalFont;
 	private Font bigFont;
 	private Font biggestFont;
@@ -63,9 +65,10 @@ public class GameScreen extends BaseScreen{
 	private SoundManager soundMan;
 	private GraphicsManager graphicsMan;
 	private GameLogic gameLogic;
-	//private InputHandler input;
+	private InputHandler input;
 	//private Platform[] platforms;
 
+	
 	private int boom=0;
 	private int level=1;
 	//private int damage=0;
@@ -117,6 +120,7 @@ public class GameScreen extends BaseScreen{
 	 * Update the game screen's backbuffer image.
 	 */
 	public void updateScreen(){
+		
 		MegaMan megaMan = gameLogic.getMegaMan();
 		Floor[] floor = gameLogic.getFloor();
 		Platform[] numPlatforms = gameLogic.getNumPlatforms();
@@ -198,7 +202,7 @@ public class GameScreen extends BaseScreen{
 			graphicsMan.drawPlatform(numPlatforms[i], g2d, this, i);
 						}
 		}
-		//		//draw Platform LV. 2
+				//draw Platform LV. 2
 			else if(level==2){
 				for(int i=0; i<8; i++){
 					
@@ -226,7 +230,7 @@ public class GameScreen extends BaseScreen{
 			// draw the asteroid until it reaches the bottom of the screen
 
 			//LEVEL 1
-			if((asteroid.getX() + asteroid.getAsteroidWidth() >  0) && (boom <= 5 || boom == 15)){
+			if((asteroid.getX() + asteroid.getAsteroidWidth() >  0) && (boom < 5 || boom == 15)){
 				asteroid.translate(-asteroid.getSpeed(), 0);
 				graphicsMan.drawAsteroid(asteroid, g2d, this);	
 			}
@@ -356,14 +360,22 @@ public class GameScreen extends BaseScreen{
 		}
 		//
 //Draws the new lvl
-		if(boom == 5 || status.getLevel()==2);{
+		if(boom == 5 ){
 			restructure();
+			
 			}
-		 if(boom ==10 || status.getLevel()==3 ){
+		else if(boom ==10 ){
 			//creates platforms for lvl 3. Make  a restructure2() and add it here
 			restructure2();
+			
 		}
-		
+		//Changes lvl whit N key/level count
+		else if(status.getLevel()==2){
+			restructureN();
+		}
+		else if(status.getLevel()==3){
+			restructure2N();
+		}
 		
 
 		status.getAsteroidsDestroyed();
@@ -670,6 +682,7 @@ public class GameScreen extends BaseScreen{
 	}
 
 	public void restructure(){
+
 		Platform[] platform = gameLogic.getNumPlatforms();
 		for(int i=0; i<8; i++){
 			if(i<4)	platform[i].setLocation(50+ i*50, getHeight()/2 + 140 - i*40);
@@ -682,6 +695,20 @@ public class GameScreen extends BaseScreen{
 		}
 		status.setLevel(status.getLevel() + 1);
 	}
+	//Used in order to set up the next lvl for the Nkey
+public void restructureN(){
+		Platform[] platform = gameLogic.getNumPlatforms();
+		for(int i=0; i<8; i++){
+			if(i<4)	platform[i].setLocation(50+ i*50, getHeight()/2 + 140 - i*40);
+			if(i==4) platform[i].setLocation(50 +i*50, getHeight()/2 + 140 - 3*40);
+			if(i>4){	
+				int n=4;
+				platform[i].setLocation(50 + i*50, getHeight()/2 + 20 + (i-n)*40 );
+				n=n+2;
+			}
+		}
+		
+	}
 	
 	public void restructure2(){
 		Platform[] platform = gameLogic.getNumPlatforms();
@@ -691,6 +718,17 @@ public class GameScreen extends BaseScreen{
 		
 		status.setLevel(status.getLevel() + 1);
 	}
+	
+	//Used in order to set up the next lvl for the Nkey
+	public void restructure2N(){
+		Platform[] platform = gameLogic.getNumPlatforms();
+		for(int i=0; i<8; i++){
+			platform[i].setLocation(50+ i*50, getHeight()/2 + 140 - i*40);
+			}
+		
+		
+	}
+	
 
 	public void removeAsteroid(Asteroid asteroid){
 		// "remove" asteroid
