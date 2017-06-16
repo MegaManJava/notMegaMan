@@ -42,7 +42,7 @@ public class InputHandler implements KeyListener{
 	private GameLogic gameLogic;
 	private GameScreen gScreen;
 
-
+private long lastPressProcessed=0;
 
 	/**
 	 * Create a new input handler
@@ -140,8 +140,13 @@ public class InputHandler implements KeyListener{
 			
 			if(nIsPressed){
 				//add code to skip lvl
+				 if(System.currentTimeMillis() - lastPressProcessed > 75) {
+			         
+			            lastPressProcessed = System.currentTimeMillis();
 				int lvl = status.getLevel();
 				status.setLevel(lvl +1);
+				 }
+				
 			}
 		}
 	}
@@ -373,9 +378,14 @@ public class InputHandler implements KeyListener{
 		}
 		e.consume();
 	}
-
+	
+	
+	
 	public void keyTyped(KeyEvent e) {
-		// not used
+		 if(System.currentTimeMillis() - lastPressProcessed > 500) {
+	            
+	            lastPressProcessed = System.currentTimeMillis();
+		 }
 	}
 //Added 
 	public boolean getNext(){
