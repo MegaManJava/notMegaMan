@@ -141,7 +141,7 @@ private long lastPressProcessed=0;
 			if(nIsPressed){
 				//add code to skip lvl
 				
-				 if(System.currentTimeMillis() - lastPressProcessed > 75) {
+				 if(System.currentTimeMillis() - lastPressProcessed > 50) {
 			         
 			            lastPressProcessed = System.currentTimeMillis();
 				int lvl = status.getLevel();

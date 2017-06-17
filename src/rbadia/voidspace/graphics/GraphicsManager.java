@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import rbadia.voidspace.model.Asteroid;
 //import rbadia.voidspace.model.BigAsteroid;
 import rbadia.voidspace.model.BigBullet;
+import rbadia.voidspace.model.Boss;
 //import rbadia.voidspace.model.Boss;
 import rbadia.voidspace.model.Bullet;
 import rbadia.voidspace.model.Floor;
@@ -33,7 +34,7 @@ public class GraphicsManager {
 	private BufferedImage asteroidImg;
 	private BufferedImage asteroidExplosionImg;
 	private BufferedImage megaManExplosionImg;
-	//	private BufferedImage bossImg;
+		private BufferedImage bossImg;
 	//	private BufferedImage bossImg2;
 	//	private BufferedImage bigAsteroidImg;
 	private BufferedImage bigAsteroidExplosionImg;
@@ -44,6 +45,7 @@ public class GraphicsManager {
 	public GraphicsManager(){
 		// load images
 		try {
+			this.bossImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/boss1.png"));
 			this.megaManImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/megaMan3.png"));
 			this.megaFallRImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/megaFallRight.png"));
 			this.megaFireRImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/megaFireRight.png"));
@@ -73,7 +75,9 @@ public class GraphicsManager {
 	 * @param g2d the graphics canvas
 	 * @param observer object to be notified
 	 */
-
+public void drawBoss(Boss megaBoss, Graphics2D g2d, ImageObserver observer ){
+	g2d.drawImage(bossImg,megaBoss.x, megaBoss.y, observer);
+}
 	public void drawMegaMan (MegaMan megaMan, Graphics2D g2d, ImageObserver observer){
 		g2d.drawImage(megaManImg, megaMan.x, megaMan.y, observer);	
 	}
