@@ -42,7 +42,7 @@ public class InputHandler implements KeyListener{
 	private GameLogic gameLogic;
 	private GameScreen gScreen;
 
-
+private long lastPressProcessed=0;
 
 	/**
 	 * Create a new input handler
@@ -102,7 +102,8 @@ public class InputHandler implements KeyListener{
 			}
 
 			
-			
+	    
+		
 			//WIP
 			//			if(mIsPressed){
 			//				mute=1;
@@ -135,6 +136,20 @@ public class InputHandler implements KeyListener{
 
 			if(rightIsPressed){
 				moveMegaManRight(megaMan, gameScreen.getWidth());
+			}
+			
+			if(nIsPressed){
+				//add code to skip lvl
+				
+				 if(System.currentTimeMillis() - lastPressProcessed > 50) {
+			         
+			            lastPressProcessed = System.currentTimeMillis();
+				int lvl = status.getLevel();
+				status.setLevel(lvl +1);
+				
+				
+				 }
+				
 			}
 		}
 	}
@@ -191,6 +206,7 @@ public class InputHandler implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		GameStatus status = gameLogic.getStatus();
 		switch(e.getKeyCode()){
+		
 		case KeyEvent.VK_UP:
 			if(!status.isGameStarted() && !status.isGameOver() && !status.isGameStarting() && !status.isGameWon()){
 			}
@@ -220,6 +236,7 @@ public class InputHandler implements KeyListener{
 			}
 			break;
 		case KeyEvent.VK_SPACE:
+			//Game menu
 			if(!status.isGameStarted() && !status.isGameOver() && !status.isGameStarting() && !status.isGameWon()){
 				// new game
 				lastBulletTime = System.currentTimeMillis();
@@ -252,6 +269,7 @@ public class InputHandler implements KeyListener{
 				}
 				//				}
 			}
+			//when the game starts
 			else{
 				this.spaceIsPressed = true;
 
@@ -311,8 +329,12 @@ public class InputHandler implements KeyListener{
 		case KeyEvent.VK_M:
 			this.mIsPressed= true;
 			break;
+			//Added
+		case KeyEvent.VK_N:
+			this.nIsPressed= true;
+			break;
 		}
-
+			//Added
 
 		e.consume();
 	}
@@ -352,14 +374,33 @@ public class InputHandler implements KeyListener{
 		case KeyEvent.VK_M:
 			this.mIsPressed = false;
 			break;
+			
+		case KeyEvent.VK_N:
+		this.nIsPressed = false;
+		break;
 		}
 		e.consume();
 	}
-
+	
+	
+	
 	public void keyTyped(KeyEvent e) {
-		// not used
+		GameStatus status = gameLogic.getStatus();
+		switch(e.getKeyCode()){
+		case KeyEvent.VK_N:
+			if(status.getLevel()==2)
+			gScreen.restructure();
+			
+			if(status.getLevel()==3)
+				gScreen.restructure2();
+		}
+		}
+	
+//Added 
+	public boolean getNext(){
+		return nIsPressed;
 	}
-
+//Added	
 	public boolean getSpace(){
 		return spaceIsPressed;
 	}
